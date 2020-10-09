@@ -63,7 +63,7 @@
         service_actions() {
             case "$1" in
                 nadeko_service_status)
-                    launchctl load /Users/$USER/Library/LaunchAgents/bot.nadeko.Nadeko.plist 2>/dev/null
+                    launchctl load /home/$USER/Library/LaunchAgents/bot.nadeko.Nadeko.plist 2>/dev/null
                     nadeko_service_status=$(launchctl print gui/$UID/bot.nadeko.Nadeko | grep "state") &&
                     nadeko_service_status=${nadeko_service_status/[[:blank:]]state = /} || {
                         nadeko_service_status="inactive"
@@ -82,7 +82,7 @@
         ########################################################################
         # Other variables
         ########################################################################
-        nadeko_service="/Users/$USER/Library/LaunchAgents/bot.nadeko.Nadeko.plist"
+        nadeko_service="/home/$USER/Library/LaunchAgents/bot.nadeko.Nadeko.plist"
         nadeko_service_content=("<?xml version=\"1.0\" encoding=\"UTF-8\"?> \
             \n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"> \
             \n<plist version=\"1.0\"> \
@@ -121,10 +121,10 @@
         # E.1. Creates '$nadeko_service_name', if it does not exist
         if [[ ! -f $nadeko_service ]]; then
             # Usually only occures if the mac was just set up
-            if [[ ! -d /Users/$USER/Library/LaunchAgents/ ]]; then
+            if [[ ! -d /home/$USER/Library/LaunchAgents/ ]]; then
                 echo "Creating '/Users/$USER/Library/LaunchAgents/'..."
-                mkdir /Users/$USER/Library/LaunchAgents || {
-                    echo "${red}Failed to create '/Users/$USER/Library/LaunchAgents'${nc}" >&2
+                mkdir /home/$USER/Library/LaunchAgents || {
+                    echo "${red}Failed to create '/home/$USER/Library/LaunchAgents'${nc}" >&2
                     clean_exit "1" "Exiting" "true"
                 }
             fi
